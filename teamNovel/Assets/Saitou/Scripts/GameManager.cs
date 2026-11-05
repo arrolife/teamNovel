@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
+using UnityEngine.Android;
 
 public class gameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class gameManager : MonoBehaviour
     public GameObject Choice1Button; //選択肢１ボタン
     public GameObject Choice2Button; //選択肢２ボタン
     public GameObject Choice3Button; //選択肢３ボタン
+    public GameObject NameInput; //名前入力のInputField
     public TMP_Text Choice1Text; //選択肢１テキスト
     public TMP_Text Choice2Text; //選択肢２テキスト
     public TMP_Text Choice3Text; //選択肢３テキスト
@@ -19,7 +21,6 @@ public class gameManager : MonoBehaviour
     public Image RightImage; //右側に立つキャラ
     public TMP_Text LeftName; //左側に立つキャラの名前
     public TMP_Text RightName; //右側に立つキャラの名前
-
 
 
     [SerializeField]
@@ -35,12 +36,13 @@ public class gameManager : MonoBehaviour
     private int _leftColumn = 1; //leftの列番号
     private int _rightColumn = 2; //rightの列番号
     private int _textColumn = 4; //textの列番号
-    private int _choice1Column = 5; //choice1の列番号
-    private int _choice2Column = 6; //choice2の列番号
-    private int _choice3Column = 7; //choice3の列番号
-    private int _jump1Column = 11; //jump1の列番号
-    private int _jump2Column = 12; //jump2の列番号
-    private int _jump3Column = 13; //jump3の列番号
+    private int _jump1Column = 5; //jump1の列番号
+    private int _jump2Column = 6; //jump2の列番号
+    private int _jump3Column = 7; //jump3の列番号
+    private int _choice1Column = 11; //choice1の列番号
+    private int _choice2Column = 12; //choice2の列番号
+    private int _choice3Column = 13; //choice3の列番号
+    
 
     //character
     private int _passColumn = 1; //passの列番号
@@ -53,11 +55,20 @@ public class gameManager : MonoBehaviour
     private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
 
 
+
+    enum GameState
+    {
+        scene1_1
+    }
+
+
     void Start()
     {
 
         //選択肢ボタンを隠す
         ChoiceButtonHide();
+        //NameInputを隠す
+        NameInput.SetActive(false);
 
         //maincsv
         MainCsvFile = Resources.Load("1-1") as TextAsset; //ResourcesにあるCSVファイルを格納

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,53 +8,64 @@ using UnityEngine.Android;
 
 public class gameManager : MonoBehaviour
 {
-    public TMP_Text MainText; //ƒƒCƒ“ƒeƒLƒXƒg
-    public GameObject MainButton; //ƒƒCƒ“ƒ{ƒ^ƒ“
-    public GameObject Choice1Button; //‘I‘ğˆ‚Pƒ{ƒ^ƒ“
-    public GameObject Choice2Button; //‘I‘ğˆ‚Qƒ{ƒ^ƒ“
-    public GameObject Choice3Button; //‘I‘ğˆ‚Rƒ{ƒ^ƒ“
-    public GameObject NameInput; //–¼‘O“ü—Í‚ÌInputField
-    public TMP_Text Choice1Text; //‘I‘ğˆ‚PƒeƒLƒXƒg
-    public TMP_Text Choice2Text; //‘I‘ğˆ‚QƒeƒLƒXƒg
-    public TMP_Text Choice3Text; //‘I‘ğˆ‚RƒeƒLƒXƒg
-    public Image LeftImage; //¶‘¤‚É—§‚ÂƒLƒƒƒ‰
-    public Image RightImage; //‰E‘¤‚É—§‚ÂƒLƒƒƒ‰
-    public TMP_Text LeftName; //¶‘¤‚É—§‚ÂƒLƒƒƒ‰‚Ì–¼‘O
-    public TMP_Text RightName; //‰E‘¤‚É—§‚ÂƒLƒƒƒ‰‚Ì–¼‘O
+    public TMP_Text MainText; //ãƒ¡ã‚¤ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+    public GameObject MainButton; //ãƒ¡ã‚¤ãƒ³ãƒœã‚¿ãƒ³
+    public GameObject Choice1Button; //é¸æŠè‚¢ï¼‘ãƒœã‚¿ãƒ³
+    public GameObject Choice2Button; //é¸æŠè‚¢ï¼’ãƒœã‚¿ãƒ³
+    public GameObject Choice3Button; //é¸æŠè‚¢ï¼“ãƒœã‚¿ãƒ³
+    public GameObject NameInput; //åå‰å…¥åŠ›ã®InputField
+    public TMP_Text Choice1Text; //é¸æŠè‚¢ï¼‘ãƒ†ã‚­ã‚¹ãƒˆ
+    public TMP_Text Choice2Text; //é¸æŠè‚¢ï¼’ãƒ†ã‚­ã‚¹ãƒˆ
+    public TMP_Text Choice3Text; //é¸æŠè‚¢ï¼“ãƒ†ã‚­ã‚¹ãƒˆ
+    public Image LeftImage; //å·¦å´ã«ç«‹ã¤ã‚­ãƒ£ãƒ©
+    public Image RightImage; //å³å´ã«ç«‹ã¤ã‚­ãƒ£ãƒ©
+    public TMP_Text LeftName; //å·¦å´ã«ç«‹ã¤ã‚­ãƒ£ãƒ©ã®åå‰
+    public TMP_Text RightName; //å³å´ã«ç«‹ã¤ã‚­ãƒ£ãƒ©ã®åå‰
 
 
     [SerializeField]
-    private float _delayDuration = 0.1f; // Ÿ‚Ì•¶š‚ğ•\¦‚·‚é‚Ü‚Å‚ÌŠÔ[s]
-    private Coroutine _showCoroutine; //“ñdÀs‚ğ–h‚®
+    private float _delayDuration = 0.1f; // æ¬¡ã®æ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®æ™‚é–“[s]
+    private Coroutine _showCoroutine; //äºŒé‡å®Ÿè¡Œã‚’é˜²ã
 
 
-    private int _lineNum = 1; //s”Ô†
-    // private int ColumnNum = 0; //—ñ”Ô† //‚Ü‚¾‚¢‚ç‚È‚³‚»‚¤
+    private int _lineNum = 1; //è¡Œç•ªå·
+    // private int ColumnNum = 0; //åˆ—ç•ªå· //ã¾ã ã„ã‚‰ãªã•ãã†
 
     //main
-    private int _idColumn = 0; //id‚Ì—ñ”Ô† //‚Ç‚Ìcsv‚àid‚ğˆê”Ô¶‚É‘‚­‚Ì‚Å‘S•”‚±‚êg‚¤
-    private int _leftColumn = 1; //left‚Ì—ñ”Ô†
-    private int _rightColumn = 2; //right‚Ì—ñ”Ô†
-    private int _textColumn = 4; //text‚Ì—ñ”Ô†
-    private int _jump1Column = 5; //jump1‚Ì—ñ”Ô†
-    private int _jump2Column = 6; //jump2‚Ì—ñ”Ô†
-    private int _jump3Column = 7; //jump3‚Ì—ñ”Ô†
-    private int _choice1Column = 11; //choice1‚Ì—ñ”Ô†
-    private int _choice2Column = 12; //choice2‚Ì—ñ”Ô†
-    private int _choice3Column = 13; //choice3‚Ì—ñ”Ô†
+    private int _idColumn = 0; //idã®åˆ—ç•ªå· //ã©ã®csvã‚‚idã‚’ä¸€ç•ªå·¦ã«æ›¸ãã®ã§å…¨éƒ¨ã“ã‚Œä½¿ã†
+    private int _leftColumn = 1; //leftã®åˆ—ç•ªå·
+    private int _rightColumn = 2; //rightã®åˆ—ç•ªå·
+    private int _textColumn = 4; //textã®åˆ—ç•ªå·
+    private int _jump1Column = 5; //jump1ã®åˆ—ç•ªå·
+    private int _jump2Column = 6; //jump2ã®åˆ—ç•ªå·
+    private int _jump3Column = 7; //jump3ã®åˆ—ç•ªå·
+    private int _choice1Column = 11; //choice1ã®åˆ—ç•ªå·
+    private int _choice2Column = 12; //choice2ã®åˆ—ç•ªå·
+    private int _choice3Column = 13; //choice3ã®åˆ—ç•ªå·
     
 
     //character
-    private int _passColumn = 1; //pass‚Ì—ñ”Ô†
-    private int _nameColumn = 2; //name‚Ì—ñ”Ô†
+    private int _passColumn = 1; //passã®åˆ—ç•ªå·
+    private int _nameColumn = 2; //nameã®åˆ—ç•ªå·
 
-    private TextAsset MainCsvFile; //MainCSVƒtƒ@ƒCƒ‹
-    private List<string[]> MainCsvData = new List<string[]>(); //MainCSVƒtƒ@ƒCƒ‹‚Ì’†g‚ğ“ü‚ê‚éƒŠƒXƒg
+    private TextAsset MainCsvFile; //MainCSVãƒ•ã‚¡ã‚¤ãƒ«
+    private List<string[]> MainCsvData = new List<string[]>(); //MainCSVãƒ•ã‚¡ã‚¤ãƒ«ã®ä¸­èº«ã‚’å…¥ã‚Œã‚‹ãƒªã‚¹ãƒˆ
 
-    private TextAsset CharacterCsvFile; //CharacterCSVƒtƒ@ƒCƒ‹
-    private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVƒtƒ@ƒCƒ‹‚Ì’†g‚ğ“ü‚ê‚éƒŠƒXƒg
+    private TextAsset CharacterCsvFile; //CharacterCSVãƒ•ã‚¡ã‚¤ãƒ«
+    private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVãƒ•ã‚¡ã‚¤ãƒ«ã®ä¸­èº«ã‚’å…¥ã‚Œã‚‹ãƒªã‚¹ãƒˆ
 
+    private static readonly HashSet<char> SmallChars = new HashSet<char>(
+        "ããƒã…ã‡ã‰ã£ã‚ƒã‚…ã‚‡ã‚ã‚•ã‚–" +
+        "ã‚¡ã‚£ã‚¥ã‚§ã‚©ãƒƒãƒ£ãƒ¥ãƒ§ãƒ®ãƒµãƒ¶"
+    );
 
+    private static readonly HashSet<char> PunctuationChars = new HashSet<char>(
+        "ã€ã€‚"
+    );
+    
+    private static readonly HashSet<char> SentenceChars = new HashSet<char>(
+        "ãƒ¼ï½ã€Œã€()ï¼ˆï¼‰â€¦"
+    );
 
     enum GameState
     {
@@ -65,47 +76,47 @@ public class gameManager : MonoBehaviour
     void Start()
     {
 
-        //‘I‘ğˆƒ{ƒ^ƒ“‚ğ‰B‚·
+        //é¸æŠè‚¢ãƒœã‚¿ãƒ³ã‚’éš ã™
         ChoiceButtonHide();
-        //NameInput‚ğ‰B‚·
+        //NameInputã‚’éš ã™
         NameInput.SetActive(false);
 
         //maincsv
-        MainCsvFile = Resources.Load("1-1") as TextAsset; //Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
-        StringReader mainreader = new StringReader(MainCsvFile.text); //TextAsset‚ğStringReader‚É•ÏŠ·
+        MainCsvFile = Resources.Load("1-1") as TextAsset; //Resourcesã«ã‚ã‚‹CSVãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ ¼ç´
+        StringReader mainreader = new StringReader(MainCsvFile.text); //TextAssetã‚’StringReaderã«å¤‰æ›
         while (mainreader.Peek() != -1)
         {
-            string line = mainreader.ReadLine(); //1s‚¸‚Â“Ç‚İ‚Ş
-            MainCsvData.Add(line.Split(',')); //csvDataƒŠƒXƒg‚É’Ç‰Á‚·‚é
+            string line = mainreader.ReadLine(); //1è¡Œãšã¤èª­ã¿è¾¼ã‚€
+            MainCsvData.Add(line.Split(',')); //csvDataãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹
         }
 
         //chractercsv
-        CharacterCsvFile = Resources.Load("CharacterImageTemplate") as TextAsset; //Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
-        StringReader characterreader = new StringReader(CharacterCsvFile.text); //TextAsset‚ğStringReader‚É•ÏŠ·
+        CharacterCsvFile = Resources.Load("CharacterImageTemplate") as TextAsset; //Resourcesã«ã‚ã‚‹CSVãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ ¼ç´
+        StringReader characterreader = new StringReader(CharacterCsvFile.text); //TextAssetã‚’StringReaderã«å¤‰æ›
         while (characterreader.Peek() != -1)
         {
-            string line = characterreader.ReadLine(); //1s‚¸‚Â“Ç‚İ‚Ş
-            CharacterCsvData.Add(line.Split(',')); //csvDataƒŠƒXƒg‚É’Ç‰Á‚·‚é
+            string line = characterreader.ReadLine(); //1è¡Œãšã¤èª­ã¿è¾¼ã‚€
+            CharacterCsvData.Add(line.Split(',')); //csvDataãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹
         }
 
-        //maincsv‚É‚¨‚¯‚éŠeColumn‚ÌˆÊ’u‚ğƒZƒbƒg
+        //maincsvã«ãŠã‘ã‚‹å„Columnã®ä½ç½®ã‚’ã‚»ãƒƒãƒˆ
         MainColumnNumSet();
 
-        //charactercsv‚É‚¨‚¯‚éŠeColumn‚ÌˆÊ’u‚ğƒZƒbƒg
+        //charactercsvã«ãŠã‘ã‚‹å„Columnã®ä½ç½®ã‚’ã‚»ãƒƒãƒˆ
         CharacterColumnSet();
 
-        //ƒeƒLƒXƒg‚É“ü—Í
+        //ãƒ†ã‚­ã‚¹ãƒˆã«å…¥åŠ›
         TextSet();
 
-        //ƒLƒƒƒ‰ƒNƒ^[image‚ğƒZƒbƒg
+        //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼imageã‚’ã‚»ãƒƒãƒˆ
         CharacterImageSet();
     }
 
 
-    //character“à‚ÌŠecolumn‚ÌˆÊ’u‚ğ’T‚·
+    //characterå†…ã®å„columnã®ä½ç½®ã‚’æ¢ã™
     private void CharacterColumnSet()
     {
-        //""‚Ì’†g‚ª³‚µ‚¢‚©•K‚¸Šm”F
+        //""ã®ä¸­èº«ãŒæ­£ã—ã„ã‹å¿…ãšç¢ºèª
         for (int i = 0; i < CharacterCsvData[0].Length; i++)
         {
 
@@ -122,11 +133,11 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //maincsv“à‚ÌŠecolumn‚ÌˆÊ’u‚ğ’T‚·
+    //maincsvå†…ã®å„columnã®ä½ç½®ã‚’æ¢ã™
     private void MainColumnNumSet()
     {
 
-        //""‚Ì’†g‚ª³‚µ‚¢‚©•K‚¸Šm”F
+        //""ã®ä¸­èº«ãŒæ­£ã—ã„ã‹å¿…ãšç¢ºèª
         for (int i = 0; i < MainCsvData[0].Length; i++)
         {
 
@@ -175,19 +186,19 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //Ÿ‚Ì‰ï˜b‚Éi‚Şˆ—
+    //æ¬¡ã®ä¼šè©±ã«é€²ã‚€å‡¦ç†
     public void MainButtonClick()
     {
 
         if (_showCoroutine == null)
         {
-            if (MainCsvData[_lineNum][_jump1Column] == "") //jump1‚Éid‚ª“ü—Í‚µ‚Ä‚ ‚é‚©
+            if (MainCsvData[_lineNum][_jump1Column] == "") //jump1ã«idãŒå…¥åŠ›ã—ã¦ã‚ã‚‹ã‹
             {
-                _lineNum++; //‚È‚¢ê‡‚ÍŸ‚Ìs‚Éi‚Ş
+                _lineNum++; //ãªã„å ´åˆã¯æ¬¡ã®è¡Œã«é€²ã‚€
             }
             else
             {
-                for (int i = 0; i < MainCsvData.Count; i++) //csvDataƒŠƒXƒg‚ÌğŒ‚ğ–‚½‚·’l‚Ì”i‘S‚Ä)
+                for (int i = 0; i < MainCsvData.Count; i++) //csvDataãƒªã‚¹ãƒˆã®æ¡ä»¶ã‚’æº€ãŸã™å€¤ã®æ•°ï¼ˆå…¨ã¦)
                 {
 
                     if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump1Column])
@@ -199,12 +210,12 @@ public class gameManager : MonoBehaviour
                 }
             }
 
-            //‘I‘ğˆ‚ª‚»‚Ì‰ï˜b‚É‚ ‚é‚©ƒ`ƒFƒbƒN
+            //é¸æŠè‚¢ãŒãã®ä¼šè©±ã«ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
             //ChoiceCheck();
             TextSet();
             CharacterImageSet();
         }
-        else //Œ»İ‚Ì‰ï˜b‚ÌƒXƒLƒbƒvˆ—
+        else //ç¾åœ¨ã®ä¼šè©±ã®ã‚¹ã‚­ãƒƒãƒ—å‡¦ç†
         {
             StopCoroutine(_showCoroutine);
             _showCoroutine = null;
@@ -214,12 +225,12 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //‘I‘ğˆ‚ª‚»‚Ì‰ï˜b‚É‚ ‚é‚©ƒ`ƒFƒbƒN
+    //é¸æŠè‚¢ãŒãã®ä¼šè©±ã«ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
     private void ChoiceCheck()
     {
-        if (MainCsvData[_lineNum][_choice1Column] != "") //Ÿ‚Ìs‚Ì‘I‘ğˆ‚Ì—L–³‚ğŠm”F
+        if (MainCsvData[_lineNum][_choice1Column] != "") //æ¬¡ã®è¡Œã®é¸æŠè‚¢ã®æœ‰ç„¡ã‚’ç¢ºèª
         {
-            //‘I‘ğˆ‚ª‚ ‚Á‚½ê‡
+            //é¸æŠè‚¢ãŒã‚ã£ãŸå ´åˆ
             MainButton.SetActive(false);
             Choice1Button.SetActive(true);
             Choice1Text.text = MainCsvData[_lineNum][_choice1Column];
@@ -240,19 +251,52 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //ƒeƒLƒXƒg‚É•\¦
-    //‚±‚Ìˆ—‚É‚ÍShow()‚ğŠÜ‚Ş
-    //MainText‚Ì_lineNum‚â_textColumn‚Ì’l‚Í‚±‚ÌŠÖ”ŠO‚Åw’è‚µ‚½‚¢
+    //ãƒ†ã‚­ã‚¹ãƒˆã«è¡¨ç¤º
+    //ã“ã®å‡¦ç†ã«ã¯Show()ã‚’å«ã‚€
+    //MainTextã®_lineNumã‚„_textColumnã®å€¤ã¯ã“ã®é–¢æ•°å¤–ã§æŒ‡å®šã—ãŸã„
     private void TextSet()
     {
-        //Show()‚Ì‘O‚É•¶š‘—‚è‚³‚¹‚½‚¢•¶Í‚ğw’è
-        //‚»‚Ì‚¤‚¿‚±‚Ìˆ—‚ğShow()‚Ì’†‚É“ü‚ê‚é‰Â”\«‚ ‚è
-        MainText.text = MainCsvData[_lineNum][_textColumn];
-        //ƒƒCƒ“ƒeƒLƒXƒg‚Ì•¶š‘—‚è
+        //Show()ã®å‰ã«æ–‡å­—é€ã‚Šã•ã›ãŸã„æ–‡ç« ã‚’æŒ‡å®š
+        //ãã®ã†ã¡ã“ã®å‡¦ç†ã‚’Show()ã®ä¸­ã«å…¥ã‚Œã‚‹å¯èƒ½æ€§ã‚ã‚Š
+        string src = MainCsvData[_lineNum][_textColumn];
+        var sb = new System.Text.StringBuilder();
+
+        sb.Append("<rotate=90>");
+
+        foreach (var c in src)
+        {
+            switch (c)
+            {
+                case var _ when SentenceChars.Contains(c):
+                    sb.Append($"</rotate>{c}<rotate=90>");
+                    break;
+
+                case var _ when SmallChars.Contains(c):
+                    sb.Append($"<voffset=0.2em>{c}</voffset>");
+                    break;
+
+                case var _ when PunctuationChars.Contains(c):
+                    sb.Append($"<voffset=0.5em>{c}</voffset>");
+                    break;
+
+                default:
+                    sb.Append(c);
+                    break;
+            }
+        }
+
+        sb.Append("</rotate>");
+
+        string preText = sb.ToString();
+
+        MainText.text = preText;
+
+
+        //ãƒ¡ã‚¤ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã®æ–‡å­—é€ã‚Š
         Show();
 
-        //Left‚Ì–¼‘O‚ğƒZƒbƒg
-        //if‚ÌğŒ‚ªImageSet‚Æ“¯‚¶‚¾‚©‚ç‚»‚Ì‚¤‚¿ˆê‚É‚Ü‚Æ‚ß‚Ä‚à‚¢‚¢‚©‚à
+        //Leftã®åå‰ã‚’ã‚»ãƒƒãƒˆ
+        //ifã®æ¡ä»¶ãŒImageSetã¨åŒã˜ã ã‹ã‚‰ãã®ã†ã¡ä¸€ç·’ã«ã¾ã¨ã‚ã¦ã‚‚ã„ã„ã‹ã‚‚
         if (MainCsvData[_lineNum][_leftColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
@@ -265,7 +309,7 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        //Right‚Ì–¼‘O‚ğƒZƒbƒg
+        //Rightã®åå‰ã‚’ã‚»ãƒƒãƒˆ
         if (MainCsvData[_lineNum][_rightColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
@@ -279,13 +323,13 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //‚»‚ê‚¼‚ê‚Ì‘I‘ğ‚É‰‚¶‚½ˆ—‚ğs‚¤
+    //ãã‚Œãã‚Œã®é¸æŠã«å¿œã˜ãŸå‡¦ç†ã‚’è¡Œã†
     public void Choice1Click()
     {
         ChoiceButtonHide();
 
-        //ƒWƒƒƒ“ƒvæ‚ÌID‚ğŒŸõ‚µ‚Ä‚»‚±‚Ì‰ï˜b‚É”ò‚Ô
-        for (int i = 0; i < MainCsvData.Count; i++) //csvDataƒŠƒXƒg‚ÌğŒ‚ğ–‚½‚·’l‚Ì”i‘S‚Ä)
+        //ã‚¸ãƒ£ãƒ³ãƒ—å…ˆã®IDã‚’æ¤œç´¢ã—ã¦ãã“ã®ä¼šè©±ã«é£›ã¶
+        for (int i = 0; i < MainCsvData.Count; i++) //csvDataãƒªã‚¹ãƒˆã®æ¡ä»¶ã‚’æº€ãŸã™å€¤ã®æ•°ï¼ˆå…¨ã¦)
         {
 
             if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump1Column])
@@ -307,7 +351,7 @@ public class gameManager : MonoBehaviour
     {
         ChoiceButtonHide();
 
-        for (int i = 0; i < MainCsvData.Count; i++) //csvDataƒŠƒXƒg‚ÌğŒ‚ğ–‚½‚·’l‚Ì”i‘S‚Ä)
+        for (int i = 0; i < MainCsvData.Count; i++) //csvDataãƒªã‚¹ãƒˆã®æ¡ä»¶ã‚’æº€ãŸã™å€¤ã®æ•°ï¼ˆå…¨ã¦)
         {
 
             if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump2Column])
@@ -328,7 +372,7 @@ public class gameManager : MonoBehaviour
     {
         ChoiceButtonHide();
 
-        for (int i = 0; i < MainCsvData.Count; i++) //csvDataƒŠƒXƒg‚ÌğŒ‚ğ–‚½‚·’l‚Ì”i‘S‚Ä)
+        for (int i = 0; i < MainCsvData.Count; i++) //csvDataãƒªã‚¹ãƒˆã®æ¡ä»¶ã‚’æº€ãŸã™å€¤ã®æ•°ï¼ˆå…¨ã¦)
         {
 
             if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump3Column])
@@ -345,7 +389,7 @@ public class gameManager : MonoBehaviour
         MainButton.SetActive(true);
     }
 
-    //‘I‘ğˆƒ{ƒ^ƒ“‚ğ‰B‚·
+    //é¸æŠè‚¢ãƒœã‚¿ãƒ³ã‚’éš ã™
     private void ChoiceButtonHide()
     {
         Choice1Button.SetActive(false);
@@ -353,10 +397,10 @@ public class gameManager : MonoBehaviour
         Choice3Button.SetActive(false);
     }
 
-    //ƒLƒƒƒ‰ƒNƒ^[‚Ìimage‚ğƒZƒbƒg‚·‚é
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®imageã‚’ã‚»ãƒƒãƒˆã™ã‚‹
     private void CharacterImageSet()
     {
-        //Left‚ÌŠm”F
+        //Leftã®ç¢ºèª
         if (MainCsvData[_lineNum][_leftColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
@@ -371,7 +415,7 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        //Right‚ÌŠm”F
+        //Rightã®ç¢ºèª
         if (MainCsvData[_lineNum][_rightColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
@@ -387,41 +431,41 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    //ŒÄ‚Ño‚·‚Æ‚«‚Í‚±‚Á‚¿
-    private void Show() //ˆê’Uprivate‚É‚µ‚Æ‚­
+    //å‘¼ã³å‡ºã™ã¨ãã¯ã“ã£ã¡
+    private void Show() //ä¸€æ—¦privateã«ã—ã¨ã
     {
-        // ‘O‰ñ‚Ì‰‰oˆ—‚ª‘–‚Á‚Ä‚¢‚½‚çA’â~
+        // å‰å›ã®æ¼”å‡ºå‡¦ç†ãŒèµ°ã£ã¦ã„ãŸã‚‰ã€åœæ­¢
         if (_showCoroutine != null)
         {
             StopCoroutine(_showCoroutine);
         }
 
-        // ‚P•¶š‚¸‚Â•\¦‚·‚é‰‰o‚ÌƒRƒ‹[ƒ`ƒ“‚ğÀs‚·‚é
+        // ï¼‘æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹æ¼”å‡ºã®ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å®Ÿè¡Œã™ã‚‹
         _showCoroutine = StartCoroutine(ShowCoroutine());
 
     }
 
-    // ‚P•¶š‚¸‚Â•\¦‚·‚é‰‰o‚ÌƒRƒ‹[ƒ`ƒ“
+    // ï¼‘æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹æ¼”å‡ºã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator ShowCoroutine()
     {
-        // ‘Ò‹@—pƒRƒ‹[ƒ`ƒ“
-        // GC Alloc‚ğÅ¬‰»‚·‚é‚½‚ßƒLƒƒƒbƒVƒ…‚µ‚Ä‚¨‚­
+        // å¾…æ©Ÿç”¨ã‚³ãƒ«ãƒ¼ãƒãƒ³
+        // GC Allocã‚’æœ€å°åŒ–ã™ã‚‹ãŸã‚ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ã¦ãŠã
         var delay = new WaitForSeconds(_delayDuration);
 
-        // ƒeƒLƒXƒg‘S‘Ì‚Ì’·‚³
+        // ãƒ†ã‚­ã‚¹ãƒˆå…¨ä½“ã®é•·ã•
         var length = MainText.text.Length;
 
-        // ‚P•¶š‚¸‚Â•\¦‚·‚é‰‰o
+        // ï¼‘æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹æ¼”å‡º
         for (var i = 0; i < length; i++)
         {
-            // ™X‚É•\¦•¶š”‚ğ‘‚â‚µ‚Ä‚¢‚­
+            // å¾ã€…ã«è¡¨ç¤ºæ–‡å­—æ•°ã‚’å¢—ã‚„ã—ã¦ã„ã
             MainText.maxVisibleCharacters = i;
 
-            // ˆê’èŠÔ‘Ò‹@
+            // ä¸€å®šæ™‚é–“å¾…æ©Ÿ
             yield return delay;
         }
 
-        // ‰‰o‚ªI‚í‚Á‚½‚ç‘S‚Ä‚Ì•¶š‚ğ•\¦‚·‚é
+        // æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‚‰å…¨ã¦ã®æ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹
         MainText.maxVisibleCharacters = length;
 
         _showCoroutine = null;

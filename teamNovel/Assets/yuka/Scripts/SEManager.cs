@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SEManager : MonoBehaviour
 {
@@ -8,22 +7,6 @@ public class SEManager : MonoBehaviour
     [SerializeField] string targetScene;
 
     bool isChangingScene = false;
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    // シーン読み込み完了時
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        isChangingScene = false;
-    }
 
     // 通常のボタンSE
     public void PlayButtonSE()

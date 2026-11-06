@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -107,22 +106,5 @@ public class SoundManager : MonoBehaviour
         PlaySe(clip);
         yield return new WaitForSecondsRealtime(clip.length);
         //SceneManager.LoadScene(sceneName);
-    }
-
-    public void PlayButtonSE(AudioClip clip)
-    {
-        if (clip == null)
-        {
-            Debug.LogWarning("SEÇ™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
-            return;
-        }
-
-        if (seAudioSource == null)
-        {
-            Debug.LogError("SEópAudioSourceÇ™Ç†ÇËÇ‹ÇπÇÒ");
-            return;
-        }
-
-        seAudioSource.PlayOneShot(clip);
     }
 }

@@ -4,26 +4,41 @@ using UnityEngine;
 
 public class CurtainController : MonoBehaviour
 {
-    [SerializeField]
-    private RectTransform curtain;
+    public enum CurtainType
+    {
+        Vertical,
+        Horizontal
+    }
 
-    [SerializeField]
-    private float moveTime = 0.5f;
+    [Header("Curtain")]
+
+    [SerializeField] private RectTransform curtain;
+
+    [SerializeField] private float moveTime = 0.5f;
 
     public Action OnBlackOut;
     public Action OnTransitionEnd;
 
     private bool isPlaying;
 
-    public void StartTransition()
+    public void StartTransition(CurtainType type)
     {
         if (isPlaying)
             return;
 
-        StartCoroutine(Transition());
+        switch (type)
+        {
+            case CurtainType.Vertical:
+                StartCoroutine(VerticalTransition());
+                break;
+
+            case CurtainType.Horizontal:
+                StartCoroutine(HorizontalTransition());
+                break;
+        }
     }
 
-    IEnumerator Transition()
+    IEnumerator VerticalTransition()
     {
         isPlaying = true;
 
@@ -71,6 +86,70 @@ public class CurtainController : MonoBehaviour
 
         Vector2 startPos = Vector2.zero;
         Vector2 endPos = new Vector2(0, -h);
+
+        float t = 0;
+
+        while (t < moveTime)
+        {
+            t += Time.deltaTime;
+
+            curtain.anchoredPosition =
+                Vector2.Lerp(startPos, endPos, t / moveTime);
+
+            yield return null;
+        }
+
+        curtain.anchoredPosition = endPos;
+    }
+
+    IEnumerator HorizontalTransition()
+    {
+        isPlaying = true;
+
+        // ¶‚©‚ç—¬“ü
+        yield return MoveInLeft();
+
+        // ‘S–Ê‚ð•¢‚Á‚½uŠÔ
+        OnBlackOut?.Invoke();
+
+        yield return new WaitForSeconds(0.2f);
+
+        // ‰E‚Ö—¬o
+        yield return MoveOutRight();
+
+        isPlaying = false;
+
+        OnTransitionEnd?.Invoke();
+    }
+
+    IEnumerator MoveInLeft()
+    {
+        float w = curtain.rect.width;
+
+        Vector2 startPos = new Vector2(-w, 0);
+        Vector2 endPos = Vector2.zero;
+
+        float t = 0;
+
+        while (t < moveTime)
+        {
+            t += Time.deltaTime;
+
+            curtain.anchoredPosition =
+                Vector2.Lerp(startPos, endPos, t / moveTime);
+
+            yield return null;
+        }
+
+        curtain.anchoredPosition = endPos;
+    }
+
+    IEnumerator MoveOutRight()
+    {
+        float w = curtain.rect.width;
+
+        Vector2 startPos = Vector2.zero;
+        Vector2 endPos = new Vector2(w, 0);
 
         float t = 0;
 

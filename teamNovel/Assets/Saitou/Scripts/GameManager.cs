@@ -5,11 +5,10 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.Android;
-
 public class gameManager : MonoBehaviour
 {
+
     public TMP_Text MainText; //メインテキスト
-    public GameObject MainButton; //メインボタン
     public GameObject Choice1Button; //選択肢１ボタン
     public GameObject Choice2Button; //選択肢２ボタン
     public GameObject Choice3Button; //選択肢３ボタン
@@ -30,6 +29,8 @@ public class gameManager : MonoBehaviour
 
     private int _lineNum = 1; //行番号
     // private int ColumnNum = 0; //列番号 //まだいらなさそう
+
+    private bool _isChoice = false; //選択肢が表示されているかどうか
 
     //main
     private int _idColumn = 0; //idの列番号 //どのcsvもidを一番左に書くので全部これ使う
@@ -54,6 +55,7 @@ public class gameManager : MonoBehaviour
     private TextAsset CharacterCsvFile; //CharacterCSVファイル
     private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
 
+    //縦書き用
     private static readonly HashSet<char> SmallChars = new HashSet<char>(
         "ぁぃぅぇぉっゃゅょゎゕゖ" +
         "ァィゥェォッャュョヮヵヶ"
@@ -82,7 +84,7 @@ public class gameManager : MonoBehaviour
         NameInput.SetActive(false);
 
         //maincsv
-        MainCsvFile = Resources.Load("1-1") as TextAsset; //ResourcesにあるCSVファイルを格納
+        MainCsvFile = Resources.Load("LilyScenario") as TextAsset; //ResourcesにあるCSVファイルを格納
         StringReader mainreader = new StringReader(MainCsvFile.text); //TextAssetをStringReaderに変換
         while (mainreader.Peek() != -1)
         {
@@ -110,6 +112,20 @@ public class gameManager : MonoBehaviour
 
         //キャラクターimageをセット
         CharacterImageSet();
+    }
+
+    private void Update()
+    {
+
+        if (!_isChoice)
+        {
+            if (ClickInput.WasClicked())
+            {
+                MainButtonClick();
+            }
+        }
+        
+
     }
 
 
@@ -231,9 +247,9 @@ public class gameManager : MonoBehaviour
         if (MainCsvData[_lineNum][_choice1Column] != "") //次の行の選択肢の有無を確認
         {
             //選択肢があった場合
-            MainButton.SetActive(false);
             Choice1Button.SetActive(true);
             Choice1Text.text = MainCsvData[_lineNum][_choice1Column];
+            _isChoice = true;
 
         }
         if (MainCsvData[_lineNum][_choice2Column] != "")
@@ -258,6 +274,9 @@ public class gameManager : MonoBehaviour
     {
         //Show()の前に文字送りさせたい文章を指定
         //そのうちこの処理をShow()の中に入れる可能性あり
+
+        //縦書き用　今はいらない
+        /*
         string src = MainCsvData[_lineNum][_textColumn];
         var sb = new System.Text.StringBuilder();
 
@@ -290,7 +309,9 @@ public class gameManager : MonoBehaviour
         string preText = sb.ToString();
 
         MainText.text = preText;
+        */
 
+        MainText.text = MainCsvData[_lineNum][_textColumn];
 
         //メインテキストの文字送り
         Show();
@@ -343,7 +364,6 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
-        MainButton.SetActive(true);
 
     }
 
@@ -365,7 +385,6 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
-        MainButton.SetActive(true);
     }
 
     public void Choice3Click()
@@ -386,7 +405,6 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
-        MainButton.SetActive(true);
     }
 
     //選択肢ボタンを隠す
@@ -395,6 +413,7 @@ public class gameManager : MonoBehaviour
         Choice1Button.SetActive(false);
         Choice2Button.SetActive(false);
         Choice3Button.SetActive(false);
+        _isChoice = false;
     }
 
     //キャラクターのimageをセットする

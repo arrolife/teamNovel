@@ -121,7 +121,7 @@ public class gameManager : MonoBehaviour
         //maincsvにおける各Columnの位置をセット
         MainColumnNumSet();
 
-        //charactercsvにおける各Columnの位置をセット
+        //charactercsvにおける各Columnの位置をセット　//background内も同じ位置のためこれでセットしたことにする
         CharacterColumnSet();
 
         //テキスト・キャラクター・背景のセット
@@ -143,7 +143,7 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //character内の各columnの位置を探す
+    //character内の各columnの位置を探す //background内も同じ位置のためこれでセットしたことにする
     private void CharacterColumnSet()
     {
         //""の中身が正しいか必ず確認

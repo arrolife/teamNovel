@@ -21,6 +21,8 @@ public class gameManager : MonoBehaviour
     public TMP_Text LeftName; //左側に立つキャラの名前
     public TMP_Text RightName; //右側に立つキャラの名前
 
+    public Image BackGround;
+
 
     [SerializeField]
     private float _delayDuration = 0.1f; // 次の文字を表示するまでの時間[s]
@@ -43,17 +45,22 @@ public class gameManager : MonoBehaviour
     private int _choice1Column = 11; //choice1の列番号
     private int _choice2Column = 12; //choice2の列番号
     private int _choice3Column = 13; //choice3の列番号
-    
+    private int _backgroundColumn = 15;
 
-    //character
+
+    //character //background
     private int _passColumn = 1; //passの列番号
     private int _nameColumn = 2; //nameの列番号
+
 
     private TextAsset MainCsvFile; //MainCSVファイル
     private List<string[]> MainCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
 
     private TextAsset CharacterCsvFile; //CharacterCSVファイル
-    private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
+    private List<string[]> CharacterCsvData = new List<string[]>(); //CharacterCSVファイルの中身を入れるリスト
+
+    private TextAsset BackGroundCsvFile; //CharacterCSVファイル
+    private List<string[]> BackGroundCsvData = new List<string[]>(); //BackGroundCSVファイルの中身を入れるリスト
 
     //縦書き用
     private static readonly HashSet<char> SmallChars = new HashSet<char>(
@@ -101,6 +108,15 @@ public class gameManager : MonoBehaviour
             CharacterCsvData.Add(line.Split(',')); //csvDataリストに追加する
         }
 
+        //background
+        BackGroundCsvFile = Resources.Load("BackGround") as TextAsset; //ResourcesにあるCSVファイルを格納
+        StringReader backgroundreader = new StringReader(BackGroundCsvFile.text); //TextAssetをStringReaderに変換
+        while (backgroundreader.Peek() != -1)
+        {
+            string line = backgroundreader.ReadLine(); //1行ずつ読み込む
+            BackGroundCsvData.Add(line.Split(',')); //csvDataリストに追加する
+        }
+
         //maincsvにおける各Columnの位置をセット
         MainColumnNumSet();
 
@@ -112,6 +128,7 @@ public class gameManager : MonoBehaviour
 
         //キャラクターimageをセット
         CharacterImageSet();
+        BackGroundSet();
     }
 
     private void Update()
@@ -198,6 +215,10 @@ public class gameManager : MonoBehaviour
             {
                 _jump3Column = i;
             }
+            else if (MainCsvData[0][i] == "back")
+            {
+                _backgroundColumn = i;
+            }
         }
     }
 
@@ -230,6 +251,7 @@ public class gameManager : MonoBehaviour
             //ChoiceCheck();
             TextSet();
             CharacterImageSet();
+            BackGroundSet();
         }
         else //現在の会話のスキップ処理
         {
@@ -364,6 +386,7 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
+        BackGroundSet();
 
     }
 
@@ -385,6 +408,7 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
+        BackGroundSet();
     }
 
     public void Choice3Click()
@@ -405,6 +429,7 @@ public class gameManager : MonoBehaviour
         }
 
         CharacterImageSet();
+        BackGroundSet();
     }
 
     //選択肢ボタンを隠す
@@ -448,6 +473,25 @@ public class gameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void BackGroundSet()//ここ調整
+    {
+
+        if (MainCsvData[_lineNum][_backgroundColumn] != "")
+        {
+            for (int i = 0; i < BackGroundCsvData.Count; i++)
+            {
+
+                if (BackGroundCsvData[i][_idColumn] == MainCsvData[_lineNum][_backgroundColumn])
+                {
+
+                    BackGround.sprite = Resources.Load<Sprite>(BackGroundCsvData[i][_passColumn]);
+
+                }
+            }
+        }
+
     }
 
     //呼び出すときはこっち

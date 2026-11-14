@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.Android;
+
 public class gameManager : MonoBehaviour
 {
 
@@ -123,12 +124,8 @@ public class gameManager : MonoBehaviour
         //charactercsvにおける各Columnの位置をセット
         CharacterColumnSet();
 
-        //テキストに入力
-        TextSet();
-
-        //キャラクターimageをセット
-        CharacterImageSet();
-        BackGroundSet();
+        //テキスト・キャラクター・背景のセット
+        AllSet();
     }
 
     private void Update()
@@ -249,9 +246,7 @@ public class gameManager : MonoBehaviour
 
             //選択肢がその会話にあるかチェック
             //ChoiceCheck();
-            TextSet();
-            CharacterImageSet();
-            BackGroundSet();
+            AllSet();
         }
         else //現在の会話のスキップ処理
         {
@@ -379,14 +374,11 @@ public class gameManager : MonoBehaviour
             {
 
                 _lineNum = i;
-                TextSet();
+                AllSet();
                 break;
             }
 
         }
-
-        CharacterImageSet();
-        BackGroundSet();
 
     }
 
@@ -401,14 +393,12 @@ public class gameManager : MonoBehaviour
             {
 
                 _lineNum = i;
-                TextSet();
+                AllSet();
                 break;
             }
 
         }
 
-        CharacterImageSet();
-        BackGroundSet();
     }
 
     public void Choice3Click()
@@ -422,14 +412,12 @@ public class gameManager : MonoBehaviour
             {
 
                 _lineNum = i;
-                TextSet();
+                AllSet();
                 break;
             }
 
         }
 
-        CharacterImageSet();
-        BackGroundSet();
     }
 
     //選択肢ボタンを隠す
@@ -439,6 +427,15 @@ public class gameManager : MonoBehaviour
         Choice2Button.SetActive(false);
         Choice3Button.SetActive(false);
         _isChoice = false;
+    }
+
+    //テキスト・キャラクター・背景をまとめてセット
+    private void AllSet()
+    {
+
+        CharacterImageSet();
+        BackGroundSet();
+        TextSet();
     }
 
     //キャラクターのimageをセットする

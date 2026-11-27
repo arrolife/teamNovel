@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: afeb0ccb68d71064a9472dffb6742f72
+guid: 66fec322263674946a5e50e7a18d3f89
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7358915939343968792
-    second: "\u30C9\u30DF\u30CB\u30AA\u4EEE\u7ACB\u3061\u7D75_0"
+      213: 4167397352306437384
+    second: rightbubble_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u30C9\u30DF\u30CB\u30AA\u4EEE\u7ACB\u3061\u7D75_0"
+      name: rightbubble_0
       rect:
         serializedVersion: 2
-        x: 591
-        y: 77
-        width: 815
-        height: 1810
+        x: 10
+        y: 9
+        width: 492
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81aae80ce0f102660800000000000000
-      internalID: 7358915939343968792
+      spriteID: 80de026efc195d930800000000000000
+      internalID: 4167397352306437384
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u30C9\u30DF\u30CB\u30AA\u4EEE\u7ACB\u3061\u7D75_0": 7358915939343968792
+      rightbubble_0: 4167397352306437384
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

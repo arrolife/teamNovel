@@ -19,6 +19,7 @@ public class gameManager : MonoBehaviour
     public TMP_Text Choice3Text; //選択肢３テキスト
     public Image LeftImage; //左側に立つキャラ
     public Image RightImage; //右側に立つキャラ
+    public Image Bubble; //吹き出し
     public TMP_Text LeftName; //左側に立つキャラの名前
     public TMP_Text RightName; //右側に立つキャラの名前
 
@@ -123,6 +124,12 @@ public class gameManager : MonoBehaviour
 
         //charactercsvにおける各Columnの位置をセット　//background内も同じ位置のためこれでセットしたことにする
         CharacterColumnSet();
+
+        if (MainCsvData[_lineNum][_idColumn] == "memo")
+        {
+            _lineNum++;
+        }
+         
 
         //テキスト・キャラクター・背景のセット
         AllSet();
@@ -264,6 +271,7 @@ public class gameManager : MonoBehaviour
         if (MainCsvData[_lineNum][_choice1Column] != "") //次の行の選択肢の有無を確認
         {
             //選択肢があった場合
+            Bubble.gameObject.SetActive(false); //もしくはImage.enabled = false　一旦SetActive
             Choice1Button.SetActive(true);
             Choice1Text.text = MainCsvData[_lineNum][_choice1Column];
             _isChoice = true;
@@ -365,6 +373,7 @@ public class gameManager : MonoBehaviour
     public void Choice1Click()
     {
         ChoiceButtonHide();
+        Bubble.gameObject.SetActive(true);
 
         //ジャンプ先のIDを検索してそこの会話に飛ぶ
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
@@ -385,6 +394,7 @@ public class gameManager : MonoBehaviour
     public void Choice2Click()
     {
         ChoiceButtonHide();
+        Bubble.gameObject.SetActive(true);
 
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
         {
@@ -404,6 +414,7 @@ public class gameManager : MonoBehaviour
     public void Choice3Click()
     {
         ChoiceButtonHide();
+        Bubble.gameObject.SetActive(true);
 
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
         {
